@@ -49,7 +49,8 @@ En `sitio/img/`: `credencial-persona.webp` y `credencial-linea.webp` (la credenc
 ## El correo de confirmación
 
 - Asunto: "Su registro a la junta de accionistas de Waystar RoyCo".
-- De usted, corto: su nombre, su modalidad, la fecha y la hora, y cómo entra (en persona, con su credencial; en línea, con la liga que le llega un día antes). Si mandó pregunta, que quedó registrada.
+- De usted, corto: su nombre, su modalidad, la fecha, la hora y el lugar, y cómo entra (en persona, con su credencial; en línea, con la liga que le llega un día antes). Si mandó pregunta, que quedó registrada.
+- Al final, cómo darse de baja: responder "baja" a ese correo.
 
 ## Datos personales
 

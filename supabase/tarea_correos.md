@@ -21,13 +21,15 @@ inexistente), márcalo 'invalido' con el motivo en
 detalle_correo y no le escribas. A los demás
 mándales con Gmail un correo corto, de usted, con
 su nombre, su modalidad y la junta: jueves 10 de
-diciembre, 10:00 h, hora de Nueva York. En persona,
-entra con su credencial; en línea, la liga le llega
-un día antes. Asunto: Su registro a la junta de
-accionistas de Waystar RoyCo. Márcalo 'enviado' con
-la hora en enviado_en. Si Gmail tiene avisos de no
-entregado para alguien de la lista, márcalo
-'rebotado'. No cambies nada más y dime cuántos.
+diciembre, 10:00 h, hora de Nueva York, en el
+auditorio de Waystar RoyCo. En persona, entra con
+su credencial; en línea, la liga le llega un día
+antes. Al final, que responda "baja" para darse de
+baja. Asunto: Su registro a la junta de accionistas
+de Waystar RoyCo. Márcalo 'enviado' con la hora en
+enviado_en. Si Gmail tiene avisos de no entregado
+para alguien de la lista, márcalo 'rebotado'. No
+cambies nada más y dime cuántos.
 ```
 
 ## 2. Conectar la página con la tarea

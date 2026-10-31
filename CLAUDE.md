@@ -12,7 +12,7 @@ Una página de registro, primero para celular, que se vea seria y de primer nive
 3. **Contador:** "Ya hay N accionistas registrados", que se actualiza solo cada 15 segundos con la función `contar_asistentes`.
 4. **Orden del día:** los cuatro puntos de la Skill, con íconos.
 5. **Modalidad:** al tocar "En persona" o "En línea" cambia la credencial y se explica cómo se asiste.
-6. **Registro:** nombre, correo, modalidad (En persona · En línea) y "Su pregunta para el consejo" (opcional, máximo 280 caracteres, con contador). Al registrarse: una animación sobria de festejo, "En unos minutos le llega su confirmación" y el contador sube.
+6. **Registro:** nombre, correo, modalidad (En persona · En línea) y "Su pregunta para el consejo" (opcional, máximo 280 caracteres, con contador). Al registrarse: una animación sobria de festejo, el título "Su registro quedó", el aviso "En unos minutos le llega su confirmación" y el contador sube.
 7. **Preguntas frecuentes** y el **aviso de privacidad** corto.
 
 Nada de cifras de la empresa, votos, resultados ni declaraciones inventadas.

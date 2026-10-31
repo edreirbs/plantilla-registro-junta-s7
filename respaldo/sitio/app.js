@@ -34,7 +34,9 @@
   // ---------- Contador animado ----------
   let mostrado = 0;
   function animarNumero(hasta) {
+    if (!$("cuantos")) $("lista").innerHTML = 'Ya hay <b id="cuantos">…</b> <span id="cuantos-txt">accionistas registrados</span>';
     const el = $("cuantos"); if (hasta == null) { el.textContent = "…"; return; }
+    $("cuantos-txt").textContent = hasta === 1 ? "accionista registrado" : "accionistas registrados";
     const desde = mostrado; mostrado = hasta;
     if (quieto || desde === hasta) { el.textContent = hasta.toLocaleString("es-MX"); return; }
     const t0 = performance.now(), dur = 900;
@@ -120,7 +122,7 @@
     if (nombre.length < 2) { msg.textContent = "Escriba su nombre."; $("nombre").setAttribute("aria-invalid", "true"); $("nombre").focus(); return; }
     if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(correo)) { msg.textContent = "Revise su correo: le falta algo."; $("correo").setAttribute("aria-invalid", "true"); $("correo").focus(); return; }
     if (texto.length > 280) { msg.textContent = "Su pregunta pasa de 280 caracteres."; $("pregunta").setAttribute("aria-invalid", "true"); $("pregunta").focus(); return; }
-    if (!listo()) { msg.textContent = "La página todavía no está conectada a la base de datos (config.js)."; return; }
+    if (!listo()) { msg.textContent = "La página todavía no está conectada a la base de datos."; return; }
     msg.textContent = ""; btn.disabled = true; btn.textContent = "Registrando…";
     try {
       const r = await registrar({ nombre, correo, modalidad, pregunta: texto || null });
