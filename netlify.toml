@@ -1,0 +1,10 @@
+# Netlify publica solo la carpeta sitio/. No hay paso de compilación.
+# Cada publicación de main gasta créditos: los cambios se revisan en la vista previa del Pull Request.
+[build]
+  publish = "sitio"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

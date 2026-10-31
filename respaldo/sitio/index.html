@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Junta anual de accionistas · Waystar RoyCo</title>
+  <meta name="description" content="Junta anual de accionistas de Waystar RoyCo, jueves 10 de diciembre de 2026. Regístrese en persona o en línea.">
+  <meta name="theme-color" content="#1C2B44">
+  <meta property="og:title" content="Junta anual de accionistas · Waystar RoyCo">
+  <meta property="og:description" content="Jueves 10 de diciembre, 10:00 h, hora de Nueva York. Regístrese en persona o en línea.">
+  <meta property="og:image" content="img/credencial-persona.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="img/credencial-persona.webp">
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <header class="barra">
+    <a class="marca" href="#inicio" aria-label="Waystar RoyCo, Relación con Inversionistas">
+      <svg class="estrella" viewBox="0 0 40 40" aria-hidden="true"><path fill="#A8894A" d="M20 2l4.6 12.4L38 15l-10.4 8.3L31.2 37 20 29.6 8.8 37l3.6-13.7L2 15l13.4-.6z"/></svg>
+      <span>Waystar RoyCo</span>
+    </a>
+    <a class="btn chico" href="#registro">Registrarme</a>
+  </header>
+
+  <main>
+    <section id="inicio" class="portada">
+      <div class="texto-portada">
+        <p class="etiqueta">Relación con Inversionistas</p>
+        <h1>Junta anual de accionistas 2026</h1>
+        <p class="bajada">Jueves 10 de diciembre, 10:00 h, hora de Nueva York. Asista en persona o en línea, y mande su pregunta al consejo.</p>
+        <div class="acciones">
+          <a class="btn" href="#registro">Registrarme</a>
+          <a class="enlace" href="#orden">Ver el orden del día</a>
+        </div>
+      </div>
+      <div class="escena" id="escena">
+        <div class="tarjeta3d" id="tarjeta3d">
+          <img id="credencial" src="img/credencial-persona.webp" width="800" height="500" alt="Credencial de accionista de Waystar RoyCo para asistir en persona">
+          <div class="brillo" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cinta" aria-label="Cuenta regresiva y registro">
+      <div class="reloj" id="reloj" aria-live="off">
+        <div><b id="r-dias">00</b><span>días</span></div>
+        <div><b id="r-horas">00</b><span>horas</span></div>
+        <div><b id="r-min">00</b><span>min</span></div>
+        <div><b id="r-seg">00</b><span>seg</span></div>
+      </div>
+      <p class="lista" id="lista" aria-live="polite">Ya hay <b id="cuantos">…</b> accionistas registrados</p>
+    </section>
+
+    <section class="seccion" id="orden">
+      <h2>Orden del día</h2>
+      <ol class="puntos">
+        <li class="punto aparece"><span class="num">1</span><div><h3>Mensaje del presidente del consejo</h3><p>Apertura de la junta.</p></div></li>
+        <li class="punto aparece"><span class="num">2</span><div><h3>Informe del año</h3><p>La dirección presenta el informe anual.</p></div></li>
+        <li class="punto aparece"><span class="num">3</span><div><h3>Elección de consejeros</h3><p>Los accionistas votan a los consejeros propuestos.</p></div></li>
+        <li class="punto aparece"><span class="num">4</span><div><h3>Preguntas de los accionistas</h3><p>El consejo contesta las preguntas registradas que alcancen en el tiempo de la junta.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="seccion modalidades" id="modalidad">
+      <h2>Elija cómo asiste</h2>
+      <div class="selector" role="radiogroup" aria-label="Modalidad de asistencia">
+        <button class="opcion activa" role="radio" aria-checked="true" data-valor="En persona" data-img="img/credencial-persona.webp">
+          <b>En persona</b><span>Auditorio de Waystar RoyCo, Nueva York. Entra con la credencial que le llega por correo.</span></button>
+        <button class="opcion" role="radio" aria-checked="false" data-valor="En línea" data-img="img/credencial-linea.webp">
+          <b>En línea</b><span>Transmisión en vivo. Su liga personal le llega por correo un día antes.</span></button>
+      </div>
+      <figure class="sala aparece">
+        <img src="img/sala.webp" width="900" height="500" loading="lazy" alt="Ilustración del auditorio de Waystar RoyCo con el escenario y las butacas">
+        <figcaption>El registro cierra el miércoles 9 de diciembre a las 18:00 h.</figcaption>
+      </figure>
+    </section>
+
+    <section class="seccion registro" id="registro">
+      <div class="caja-registro">
+        <h2>Regístrese</h2>
+        <p>Le confirmamos por correo su lugar y cómo entra.</p>
+        <form id="forma" novalidate>
+          <label>Su nombre<input id="nombre" name="nombre" autocomplete="name" maxlength="80" required></label>
+          <label>Su correo<input id="correo" name="correo" type="email" inputmode="email" autocomplete="email" maxlength="120" required></label>
+          <fieldset>
+            <legend>Modalidad</legend>
+            <div class="dos">
+              <label><input type="radio" name="modalidad" value="En persona" checked><span>En persona</span></label>
+              <label><input type="radio" name="modalidad" value="En línea"><span>En línea</span></label>
+            </div>
+          </fieldset>
+          <label>Su pregunta para el consejo <small>(opcional)</small>
+            <textarea id="pregunta" name="pregunta" rows="3" maxlength="280" placeholder="Escriba una sola pregunta"></textarea>
+            <small class="cuenta" id="cuenta">0 de 280</small></label>
+          <p class="mensaje" id="mensaje" role="status"></p>
+          <button class="btn grande" id="enviar" type="submit">Registrarme</button>
+          <p class="privacidad">Al registrarse acepta el <a href="#aviso">aviso de privacidad</a>.</p>
+        </form>
+        <div class="gracias" id="gracias" hidden>
+          <div class="sello-ok" aria-hidden="true">✓</div>
+          <h2 id="gracias-titulo">Su registro quedó</h2>
+          <p>En unos minutos le llega su confirmación por correo. Revise también su carpeta de spam.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="seccion" id="preguntas">
+      <h2>Preguntas frecuentes</h2>
+      <details><summary>¿Dónde es la junta?</summary><p>En el auditorio de Waystar RoyCo, en Nueva York, y en transmisión en vivo para quien se registre en línea.</p></details>
+      <details><summary>¿Cómo entro en línea?</summary><p>Un día antes le llega por correo su liga personal. No la comparta: es solo para usted.</p></details>
+      <details><summary>¿Puedo mandar más de una pregunta?</summary><p>Una por persona, de máximo 280 caracteres. El consejo contesta en la junta las que alcancen; las demás, por correo.</p></details>
+      <details><summary>¿Puedo cambiar de modalidad?</summary><p>Sí. Responda al correo de confirmación con la modalidad nueva antes de que cierre el registro.</p></details>
+    </section>
+
+    <section class="seccion aviso" id="aviso">
+      <h2>Aviso de privacidad</h2>
+      <p>Sus datos los recibe Waystar RoyCo · Relación con Inversionistas solo para confirmar su registro y enviarle su acceso a la junta. No los compartimos con nadie. Para darse de baja, responda "baja" a cualquiera de nuestros correos y lo borramos de la lista.</p>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>Waystar RoyCo es una empresa de ficción. Esta es una página de práctica de un curso de Claude for Business.</p>
+    <p>Material de ficción con fines educativos. Personajes y empresas de la serie Succession (HBO). Sin afiliación con HBO ni con sus titulares.</p>
+  </footer>
+
+  <canvas id="confeti" aria-hidden="true"></canvas>
+  <script src="config.js"></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
