@@ -48,8 +48,36 @@
   async function refrescar() { const n = await contar(); if (n != null) animarNumero(n); else if (!mostrado) $("lista").textContent = "Sea de los primeros accionistas en registrarse"; }
   refrescar(); setInterval(() => { if (!document.hidden) refrescar(); }, 15000);
 
+  // ---------- La fecha de la junta: la da la base (datos_junta); nunca está escrita en un archivo ----------
+  const NY = "America/New_York";
+  function desfaseNY(ymd) {
+    const p = new Intl.DateTimeFormat("en-US", { timeZone: NY, timeZoneName: "shortOffset" }).formatToParts(new Date(ymd + "T15:00:00Z"));
+    const m = ((p.find((x) => x.type === "timeZoneName") || {}).value || "GMT-5").match(/GMT([+-])(\d+)/);
+    return m ? m[1] + m[2].padStart(2, "0") + ":00" : "-05:00";
+  }
+  function siguienteJunta() { // sin base: el primer jueves a 28 días o más, a las 10:00 h de Nueva York
+    const d = new Date(Date.now() + 28 * 864e5);
+    const dia = new Intl.DateTimeFormat("en-US", { timeZone: NY, weekday: "short" }).format(d);
+    const j = new Date(d.getTime() + ((11 - ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].indexOf(dia) - 1) % 7) * 864e5);
+    const ymd = new Intl.DateTimeFormat("en-CA", { timeZone: NY, year: "numeric", month: "2-digit", day: "2-digit" }).format(j);
+    return new Date(ymd + "T10:00:00" + desfaseNY(ymd));
+  }
+  async function fechaJunta() {
+    if (listo()) {
+      try {
+        const r = await fetch(base() + "/rest/v1/rpc/datos_junta", { method: "POST", headers: encabezados(), body: "{}" });
+        if (r.ok) { const j = await r.json(); if (j && j.fecha) return { fecha: new Date(j.fecha), cierre: new Date(j.cierre_registro) }; }
+      } catch (e) { /* sin base: se calcula aquí */ }
+    }
+    const f = siguienteJunta();
+    return { fecha: f, cierre: new Date(f.getTime() - 16 * 3600e3) };
+  }
+  const enNY = (d, op) => new Intl.DateTimeFormat("es-MX", Object.assign({ timeZone: NY }, op)).format(d);
+  const diaTexto = (d) => { const s = enNY(d, { weekday: "long" }); return s.charAt(0).toUpperCase() + s.slice(1) + " " + enNY(d, { day: "numeric" }) + " de " + enNY(d, { month: "long" }); };
+  const horaTexto = (d) => enNY(d, { hour: "2-digit", minute: "2-digit", hour12: false }) + " h";
+
   // ---------- Cuenta regresiva ----------
-  const meta = new Date(CFG.fechaJunta || "2026-12-10T10:00:00-05:00").getTime();
+  let meta = 0;
   const dos = (n) => String(n).padStart(2, "0");
   function reloj() {
     let s = Math.max(0, Math.floor((meta - Date.now()) / 1000));
@@ -59,7 +87,12 @@
     $("r-min").textContent = dos(Math.floor(s / 60)); $("r-seg").textContent = dos(s % 60);
     return true;
   }
-  if (reloj()) { const id = setInterval(() => { if (!reloj()) clearInterval(id); }, 1000); }
+  fechaJunta().then(({ fecha, cierre }) => {
+    meta = fecha.getTime();
+    $("fecha-junta").textContent = diaTexto(fecha) + ", " + horaTexto(fecha) + ", hora de Nueva York";
+    $("cierre-junta").textContent = "El registro cierra el " + diaTexto(cierre).toLowerCase() + " a las " + horaTexto(cierre) + ".";
+    if (reloj()) { const id = setInterval(() => { if (!reloj()) clearInterval(id); }, 1000); }
+  });
 
   // ---------- Efecto 3D ----------
   const tarjeta = $("tarjeta3d"), escena = $("escena");

@@ -34,11 +34,11 @@ Empresa de medios y entretenimiento **de ficción**, de la serie *Succession*. E
 
 | Dato | Valor |
 |---|---|
-| Evento | Junta anual de accionistas de Waystar RoyCo 2026 |
-| Fecha | Jueves 10 de diciembre de 2026, 10:00 h, hora de Nueva York |
+| Evento | Junta anual de accionistas de Waystar RoyCo |
+| Fecha | La da la función `datos_junta` de la base: un jueves a cuatro semanas o más de la instalación, 10:00 h, hora de Nueva York. Nunca se escribe fija |
 | En persona | Auditorio de Waystar RoyCo, Nueva York. Se entra con la credencial que llega por correo |
 | En línea | Transmisión en vivo. La liga personal llega por correo un día antes |
-| Registro | Cierra el miércoles 9 de diciembre a las 18:00 h |
+| Registro | Cierra la víspera de la junta a las 18:00 h (también lo da `datos_junta`) |
 | Orden del día | 1. Mensaje del presidente del consejo. 2. Informe del año. 3. Elección de consejeros. 4. Preguntas de los accionistas |
 | Preguntas | Una por persona, de máximo 280 caracteres. El consejo contesta en la junta las que alcancen; las demás, por correo |
 

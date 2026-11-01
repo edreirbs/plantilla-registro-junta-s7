@@ -8,7 +8,7 @@ El ejemplo es el registro a la **junta anual de accionistas de Waystar RoyCo**, 
 Una página de registro, primero para celular, que se vea seria y de primer nivel:
 
 1. **Portada:** la credencial de accionista en grande con efecto 3D (se inclina con el mouse o al mover el celular; en iPhone, pide el permiso de movimiento con `DeviceOrientationEvent.requestPermission()` al primer toque; respeta `prefers-reduced-motion`), el nombre de la junta, la fecha y el botón "Registrarme".
-2. **Cuenta regresiva** a la junta, en vivo.
+2. **Cuenta regresiva** a la junta, en vivo, con la fecha que da la función `datos_junta` de la base. La fecha nunca se escribe en un archivo: cambia en cada instalación.
 3. **Contador:** "Ya hay N accionistas registrados", que se actualiza solo cada 15 segundos con la función `contar_asistentes`.
 4. **Orden del día:** los cuatro puntos de la Skill, con íconos.
 5. **Modalidad:** al tocar "En persona" o "En línea" cambia la credencial y se explica cómo se asiste.
@@ -24,6 +24,7 @@ Nada de cifras de la empresa, votos, resultados ni declaraciones inventadas.
 - **Supabase** con `fetch`, sin librerías:
   - Registrar: `POST https://<proyecto>.supabase.co/rest/v1/asistentes` con encabezados `apikey`, `Content-Type: application/json` y `Prefer: return=minimal`, y solo las columnas `nombre`, `correo`, `modalidad`, `pregunta`.
   - Contador: `POST /rest/v1/rpc/contar_asistentes`.
+  - Fecha de la junta: `POST /rest/v1/rpc/datos_junta` regresa `fecha` y `cierre_registro`. Muéstralas en español y con la zona de Nueva York (día de la semana, día, mes y hora). Si la base no responde, calcula el primer jueves a 28 días o más de hoy, a las 10:00 h de Nueva York.
   - Con una llave `sb_publishable_...` no mandes `Authorization`.
   - Si el correo ya está registrado, la base responde `409` (código `23505`): dile "Ya está registrado con ese correo".
 - **Seguridad:** solo la llave *publishable* va en `sitio/config.js`. Nunca la secreta (`sb_secret_...`) ni la `service_role`. La página **nunca** lee la tabla `asistentes`: el público solo puede registrarse y ver el número.
@@ -35,7 +36,7 @@ Nada de cifras de la empresa, votos, resultados ni declaraciones inventadas.
 
 - `supabase/esquema.sql` crea la tabla, sus permisos, el contador y el aviso a Claude. Se corre una vez con el conector de Supabase en el proyecto que diga la persona.
 - `supabase/tarea_correos.md` trae el prompt de la tarea programada que manda los correos de confirmación y cómo conectarla.
-- El asesor de seguridad de Supabase avisa que el público puede ejecutar `contar_asistentes`. Es a propósito: solo regresa el número.
+- El asesor de seguridad de Supabase avisa que el público puede ejecutar `contar_asistentes` y `datos_junta`. Es a propósito: una regresa el número y la otra, la fecha.
 
 ## Cómo se trabaja
 

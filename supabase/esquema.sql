@@ -39,6 +39,42 @@ $$;
 revoke execute on function public.contar_asistentes() from public;
 grant execute on function public.contar_asistentes() to anon, authenticated;
 
+-- ---------- La fecha de la junta ----------
+-- No está escrita en ningún archivo: la base la fija la primera vez que se corre este esquema, y la página y la
+-- tarea de los correos la leen de aquí. Es el primer jueves a 28 días o más, a las 10:00 h de Nueva York.
+-- Si ya pasó, datos_junta() la recorre a la siguiente. El registro cierra la víspera a las 18:00 h.
+create table if not exists public.junta (
+  id int primary key default 1 check (id = 1),
+  fecha timestamptz not null
+);
+alter table public.junta enable row level security;
+revoke all on public.junta from anon, authenticated;
+
+create or replace function public.siguiente_junta(desde timestamptz)
+returns timestamptz language sql stable set search_path = public as $$
+  select ((d + (11 - extract(isodow from d)::int) % 7) + time '10:00') at time zone 'America/New_York'
+  from (select (desde at time zone 'America/New_York')::date + 28 as d) x;
+$$;
+revoke execute on function public.siguiente_junta(timestamptz) from public, anon, authenticated;
+
+insert into public.junta (id, fecha) values (1, public.siguiente_junta(now())) on conflict (id) do nothing;
+
+create or replace function public.datos_junta()
+returns json language plpgsql volatile security definer set search_path = public as $$
+declare f timestamptz;
+begin
+  select fecha into f from public.junta where id = 1;
+  if f is null or f < now() - interval '1 day' then
+    f := public.siguiente_junta(now());
+    insert into public.junta (id, fecha) values (1, f) on conflict (id) do update set fecha = excluded.fecha;
+  end if;
+  return json_build_object(
+    'fecha', f,
+    'cierre_registro', (((f at time zone 'America/New_York')::date - 1) + time '18:00') at time zone 'America/New_York');
+end $$;
+revoke execute on function public.datos_junta() from public;
+grant execute on function public.datos_junta() to anon, authenticated;
+
 -- ---------- Aviso a Claude cuando llega un registro ----------
 -- Al guardar un registro, la base llama a la tarea programada de Claude por su liga de activación (API trigger).
 -- Avisa como mucho una vez cada 2 minutos; la tarea atiende todos los pendientes de una vez.
